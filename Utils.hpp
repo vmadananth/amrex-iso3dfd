@@ -37,6 +37,7 @@ void initialize(float* ptr_prev, float* ptr_next, float* ptr_vel, int n1,
 
 void printStats (double time, amrex::Box const& domain, int nIterations)
 {
+    std::cout << domain.d_numPts() << std::endl;
     auto normalized_time = time / double(nIterations);
     auto throughput_mpoints = domain.d_numPts() / normalized_time / 1.e6;
 
@@ -52,14 +53,19 @@ void printStats (double time, amrex::Box const& domain, int nIterations)
     std::cout << "\n--------------------------------------\n";
 
 }
+
 void printStats(double time, size_t n1, size_t n2, size_t n3,
                 size_t num_iterations) {
+  std::cout << n1*n2*n3 << std::endl;
+  std::cout << "Print Stats " << std::endl;
+  std::cout << time << std::endl;
   float throughput_mpoints = 0.0f, mflops = 0.0f, normalized_time = 0.0f;
   double mbytes = 0.0f;
 
   normalized_time = (double)time / num_iterations;
-  throughput_mpoints = ((n1 - 2 * kHalfLength) * (n2 - 2 * kHalfLength) *
-                        (n3 - 2 * kHalfLength)) /
+  std::cout << normalized_time << std::endl;
+  throughput_mpoints = ((n1 ) * (n2) *
+                        (n3)) /
                        (normalized_time * 1e3f);
   mflops = (7.0f * kHalfLength + 5.0f) * throughput_mpoints;
   mbytes = 12.0f * throughput_mpoints;

@@ -301,7 +301,7 @@ void main_main ()
         Iso3dfd_opt(next, prev, vel, coeff_dv, num_iterations, n1, n2, n3, n1_block, n2_block, n3_block, n3 - kHalfLength);
         Gpu::streamSynchronize();
         auto t1 = amrex::second();
-        printStats(t1-t0, domain, num_iterations);
+        printStats((t1-t0) * 1e-3, n1, n2, n3, num_iterations);
     }
     else{
     Iso3dfd(next, prev, vel, coeff_dv, 20); // warm up
@@ -311,6 +311,7 @@ void main_main ()
     Iso3dfd(next, prev, vel, coeff_dv, num_iterations);
     Gpu::streamSynchronize();
     auto t1 = amrex::second();
+    printStats((t1-t0) * 1e3, n1, n2, n3, num_iterations);
     printStats(t1-t0, domain, num_iterations);
 
     amrex::Print() << "Final min, max, 1-norm, 2-norm, inf-norm, sum: "
