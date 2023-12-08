@@ -228,7 +228,9 @@ void Iso3dfd (FArrayBox& nextfab, FArrayBox& prevfab, FArrayBox const& velfab,
                 pn[offset] = 2.0f * pp[offset] - pn[offset] + value*pv[offset];
             });
         }
+        Gpu::streamSynchronize();
     }
+
 }
 
 
@@ -238,9 +240,7 @@ void main_main ()
     static_assert(std::is_same_v<float,Real>);
 
     std::array<int,3> grid_sizes{256,256,256};
-    size_t n1 = grid_sizes[0];
-    size_t n2 = grid_sizes[1];
-    size_t n3 = grid_sizes[2];
+    
     int n1_block = 32;
     int n2_block = 8;
     int n3_block = 64;
@@ -254,6 +254,10 @@ void main_main ()
         pp.query("use_array4_hack", use_array4_hack);
         pp.query("opt" , opt);
     }
+
+    size_t n1 = grid_sizes[0];
+    size_t n2 = grid_sizes[1];
+    size_t n3 = grid_sizes[2];
 
      Box domain(IntVect(0),IntVect(grid_sizes[0]-1,
                                   grid_sizes[1]-1,

@@ -1,5 +1,5 @@
-grid_sizes = 256 256 256
-iterations = 100
+grid_sizes = 256 512 512
+iterations = 10000
 use_array4 = 0
 use_array4_hack = 0
 opt = 0
